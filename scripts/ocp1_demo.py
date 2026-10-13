@@ -105,6 +105,11 @@ def cmd_stats(a):
                       f"Demo seed: {demo}\n\n" + pd.DataFrame(table).to_markdown(index=False) + "\n")
             manifest.append({"scene": sc, "scene_label": SCENES[sc][1], "bb": bb, "bb_label": BLACK_BOXES[bb][1],
                              "seed": demo, "n": len(ok), "summary": summary})
+    # every run, for the "Kết quả" table of the replay page (web/src/results.ts)
+    runs = [{"scene": r.scene, "bb": r.bb, "arm": r.arm, "seed": int(r.seed), "m": [float(r[k]) for k in KEYS]}
+            for _, r in df.iterrows()]
+    WEB.mkdir(parents=True, exist_ok=True)
+    (WEB / "ocp1_runs.json").write_text(json.dumps({"keys": KEYS, "runs": runs}), encoding="utf-8")
     (OUT / "ocp1_stats_all.md").write_text("\n".join(md), encoding="utf-8")
     (OUT / "ocp1_manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False), encoding="utf-8")
     print("\n".join(md))

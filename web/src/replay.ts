@@ -2,6 +2,7 @@
 // Data: /data/oceanpark.json, /data/ocp1_manifest.json and /data/ocp1_replay_<scene>_<bb>_<base|v21>.json (scripts/ocp1_demo.py).
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { buildMap, type MapLayers } from "./map";
+import { initResults } from "./results";
 import type { Pt } from "./geom";
 import type { MapData } from "./types";
 
@@ -354,7 +355,10 @@ async function main() {
   const setPlaying = (p: boolean) => { playing = p; play.textContent = p ? "❚❚" : "▶"; };
   setPlaying(playing);
   play.onclick = () => setPlaying(!playing);
-  window.addEventListener("keydown", (e) => { if (e.code === "Space") { e.preventDefault(); setPlaying(!playing); } });
+  window.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && document.getElementById("results")?.hidden !== false) { e.preventDefault(); setPlaying(!playing); }
+  });
+  initResults(() => ({ scene: sceneSel.value, bb: bbSel.value }));
   slider.oninput = () => (t = Number(slider.value));
   document.querySelectorAll<HTMLButtonElement>(".jump").forEach((b) => (b.onclick = () => (t = Number(b.dataset.h) * 3600)));
 

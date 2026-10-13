@@ -56,6 +56,11 @@ URL options for `replay.html`:
 | `scene=normal\|harsh` | scenario; harsh = 0.20 kWh/km, noisy SOC, 40 % of recommendations followed | `&scene=harsh` |
 | `bb=b1\|b0\|b6\|b2` | black-box matcher: B1 company-style (default), B0 greedy, B6 trip value, B2 forward + repositioning | `&bb=b6` |
 
+The "Kết quả" button opens a results table: pick a scenario, a black box and any subset of the 20 seeds, and get
+the mean of each metric with and without the battery layer plus the relative difference (green / red = better /
+worse with a 95 % confidence interval excluding 0; hover for the absolute difference). Data:
+`web/public/data/ocp1_runs.json`, written by `scripts/ocp1_demo.py stats`.
+
 Controls: space or ▶ to play / pause; the time bar to seek; speed ×30 to ×600; jump buttons for 05:00, 06:30,
 07:30, 16:00 and 17:30; mouse wheel to zoom both maps, drag to pan, double-click to fit. The "+N riders" counter
 pairs the same booking on both sides: a green star marks a trip served only on the right, a red star one served

@@ -108,3 +108,36 @@ body { display: flex; flex-direction: column; }
 .star.saved { background: #12b886; }
 .star.lost { background: #e03131; }
 #legend .note { font-weight: 600; color: var(--ink); }
+
+/* "Kết quả" panel (src/results.ts) */
+#results-btn { font-weight: 700; color: #fff; background: var(--accent); border-color: var(--accent); }
+#results {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(30, 34, 44, 0.45);
+}
+#results[hidden] { display: none; }
+#results .panel {
+  width: min(860px, 94vw); max-height: 90vh; overflow: auto;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 18px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+#results .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+#results .head strong { font-size: 16px; }
+#results button { font: inherit; padding: 3px 9px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; }
+#results .pick { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+#results .pick select { font: inherit; padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; }
+#results .seed-tools button { margin-left: 4px; }
+#results .seeds { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+#results .seeds button { min-width: 50px; color: var(--muted); }
+#results .seeds button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+#results table { width: 100%; border-collapse: collapse; font-size: 14px; }
+#results th, #results td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+#results th:first-child, #results td:first-child { text-align: left; }
+#results thead th { background: #f3eee3; font-weight: 700; }
+#results td.good { color: var(--good); font-weight: 700; }
+#results td.bad { color: var(--bad); font-weight: 700; }
+#results td.neutral { color: var(--muted); }
+#results td small { font-weight: 400; }
+#results td.empty { text-align: center; color: var(--muted); }
+#results .foot { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
