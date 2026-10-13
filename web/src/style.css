@@ -1,0 +1,78 @@
+:root {
+  --c-ground: #e6dcc6;
+  --c-panel: #fffdf8;
+  --c-ink: #2f3440;
+  --c-muted: #6b6f78;
+  --c-line: #d8cfbd;
+  --c-residential: #9aa3c9;
+  --c-edu: #7fb4e6;
+  --c-mall: #f2a35e;
+  --c-construction: #d9cba8;
+  --c-station: #22a06b;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--c-ground);
+  color: var(--c-ink);
+  font: 13px/1.4 system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+#map { position: fixed; inset: 0; }
+
+#panel {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: 248px;
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  padding: 14px 16px;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+}
+
+#panel h1 { margin: 0; font-size: 16px; }
+#panel h2 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--c-muted); }
+#panel .sub { margin: 2px 0 10px; color: var(--c-muted); }
+#panel section { padding: 10px 0; border-top: 1px solid var(--c-line); }
+#panel label { display: flex; align-items: center; gap: 6px; padding: 2px 0; cursor: pointer; }
+#panel label.row input[type="range"] { flex: 1; }
+#panel label.row span { width: 34px; text-align: right; font-variant-numeric: tabular-nums; }
+#panel .note { margin: 0 0 6px; color: var(--c-muted); font-size: 12px; }
+#panel .legend div { display: flex; align-items: center; gap: 8px; padding: 2px 0; }
+#panel .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgb(0 0 0 / 0.2); }
+#panel .sw.round { border-radius: 50%; }
+#panel .attr { margin: 8px 0 0; font-size: 11px; color: var(--c-muted); }
+
+#zoom {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#zoom button {
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  color: var(--c-ink);
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#zoom button:hover { background: #f3eee2; }
+
+@media (max-width: 600px) {
+  #panel { width: calc(100% - 24px); max-height: 40%; }
+}

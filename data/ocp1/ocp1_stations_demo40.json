@@ -1,0 +1,85 @@
+{
+ "note": "OCP1 demo charger set (2026-10-12): 40 car DC ports chosen to create charging pressure (source set: 96 car ports + 60 e-scooter ports from OSM; e-scooter sites dropped; mall and depot cut from 12 to 8 ports; 6 of 18 residential 4-port sites kept, spread by farthest-point sampling).",
+ "stations": [
+  {
+   "id": "st03",
+   "lat": 20.9941819,
+   "lon": 105.9585283,
+   "node": 7262861319,
+   "kind": "mall",
+   "ports": 8,
+   "dc_kw": 60,
+   "source_ports": 12
+  },
+  {
+   "id": "st04",
+   "lat": 20.9931775,
+   "lon": 105.9605032,
+   "node": 8333311848,
+   "kind": "depot",
+   "ports": 8,
+   "dc_kw": 60,
+   "source_ports": 12
+  },
+  {
+   "id": "st17",
+   "lat": 20.990359,
+   "lon": 105.940081,
+   "node": 12011835346,
+   "kind": "residential",
+   "ports": 4,
+   "dc_kw": 30,
+   "source_ports": 4
+  },
+  {
+   "id": "st27",
+   "lat": 21.0010903,
+   "lon": 105.9428671,
+   "node": 12005872352,
+   "kind": "residential",
+   "ports": 4,
+   "dc_kw": 30,
+   "source_ports": 4
+  },
+  {
+   "id": "st09",
+   "lat": 20.9894068,
+   "lon": 105.9486491,
+   "node": 9414799498,
+   "kind": "residential",
+   "ports": 4,
+   "dc_kw": 30,
+   "source_ports": 4
+  },
+  {
+   "id": "st25",
+   "lat": 20.9957352,
+   "lon": 105.9441007,
+   "node": 12015164549,
+   "kind": "residential",
+   "ports": 4,
+   "dc_kw": 30,
+   "source_ports": 4
+  },
+  {
+   "id": "st05",
+   "lat": 20.9913935,
+   "lon": 105.9557446,
+   "node": 7262861331,
+   "kind": "residential",
+   "ports": 4,
+   "dc_kw": 30,
+   "source_ports": 4
+  },
+  {
+   "id": "st10",
+   "lat": 20.9898045,
+   "lon": 105.9438542,
+   "node": 9924189200,
+   "kind": "residential",
+   "ports": 4,
+   "dc_kw": 30,
+   "source_ports": 4
+  }
+ ]
+}

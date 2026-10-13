@@ -1,0 +1,32 @@
+# environments and caches
+.venv/
+__pycache__/
+*.pyc
+cache/
+web/node_modules/
+web/dist/
+
+# generated results (large; reproducible with scripts/run_jobs.py)
+outputs/
+kaggle/*/
+!kaggle/*.py
+!kaggle/*.ipynb
+
+# figures (not published)
+docs/figures/
+
+# third-party documents and raw downloads
+papers/
+*.pdf
+data/osm_cache/
+# Google Places content may not be redistributed (Google Maps Platform terms);
+# rebuild with scripts/fetch_google_stations.py and your own GOOGLE_MAPS_API_KEY
+data/google_places_raw.jsonl
+data/stations_google.csv
+
+# local images and slides not part of the code
+*.jpg
+*.pptx
+so_do_pipeline_ghep_xe_khach.svg
+~$*
+data/oneway_check.csv

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ocean Park Dispatch</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <aside id="panel">
+      <h1>Vinhomes Ocean Park 1</h1>
+      <p class="sub">Bản đồ mô phỏng điều phối xe điện</p>
+
+      <section>
+        <h2>Lớp hiển thị</h2>
+        <label><input type="checkbox" data-layer="green" checked /> Công viên, hồ</label>
+        <label><input type="checkbox" data-layer="vin" checked /> Công trình Vin</label>
+        <label><input type="checkbox" data-layer="blocks" checked /> Nhà, công trình khác</label>
+        <label><input type="checkbox" data-layer="stations" checked /> Trạm sạc</label>
+        <label><input type="checkbox" data-layer="signals" checked /> Đèn giao thông</label>
+        <label><input type="checkbox" data-layer="labels" checked /> Tên địa điểm</label>
+        <label><input type="checkbox" data-layer="boundary" checked /> Ranh giới khu</label>
+      </section>
+
+      <section>
+        <h2>Xe minh hoạ</h2>
+        <p class="note">Xe chạy ngẫu nhiên trên mạng đường để kiểm tra hiển thị. Chưa phải simulator.</p>
+        <label><input type="checkbox" id="demo-on" checked /> Bật</label>
+        <label class="row">Số xe <input type="range" id="demo-count" min="0" max="400" step="10" value="150" /><span id="demo-count-v">150</span></label>
+        <label class="row">Tốc độ <input type="range" id="demo-speed" min="1" max="20" step="1" value="4" /><span id="demo-speed-v">4×</span></label>
+      </section>
+
+      <section class="legend">
+        <h2>Chú thích</h2>
+        <div><i class="sw" style="background:var(--c-residential)"></i> Chung cư Vinhomes</div>
+        <div><i class="sw" style="background:var(--c-edu)"></i> VinUni, Vinschool</div>
+        <div><i class="sw" style="background:var(--c-mall)"></i> Vincom</div>
+        <div><i class="sw" style="background:var(--c-construction)"></i> Đang xây (Vinmec…)</div>
+        <div><i class="sw round" style="background:var(--c-station)"></i> Trạm sạc ô tô</div>
+        <div><i class="sw" style="background:#23272e;border-color:#fff"></i> Đèn giao thông (2 từ OSM, còn lại giả định)</div>
+      </section>
+      <p class="attr" id="attr"></p>
+    </aside>
+    <div id="zoom">
+      <button id="zoom-in" title="Phóng to">+</button>
+      <button id="zoom-out" title="Thu nhỏ">−</button>
+      <button id="zoom-fit" title="Vừa khung">⤢</button>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

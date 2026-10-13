@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCP1 Replay</title>
+    <link rel="stylesheet" href="/src/replay.css" />
+  </head>
+  <body>
+    <header id="bar">
+      <div class="title">
+        <strong>Vinhomes Ocean Park 1</strong>
+        <span>60 xe điện · 40 cổng sạc · cùng nhu cầu, cùng tài xế (cùng seed)</span>
+      </div>
+      <div class="pickers">
+        <label>Kịch bản <select id="scene"></select></label>
+        <label>Luật ghép (black box) <select id="bb"></select></label>
+      </div>
+      <div id="gain" title="Hành trình (tính theo lượt đặt đầu tiên) bên phải phục vụ được mà bên trái mất, và ngược lại">
+        <div class="net">+0</div>
+        <div class="detail">khách được cứu <b class="saved">0</b> · bị mất <b class="lost">0</b></div>
+      </div>
+      <div class="controls">
+        <button id="play" title="Chạy / dừng (phím cách)">▶</button>
+        <span id="clock">00:00</span>
+        <input id="time" type="range" min="0" max="86400" step="30" value="18000" />
+        <select id="speed" title="Tốc độ phát lại">
+          <option value="30">×30</option>
+          <option value="60">×60</option>
+          <option value="120" selected>×120</option>
+          <option value="300">×300</option>
+          <option value="600">×600</option>
+        </select>
+        <button class="jump" data-h="5">05:00</button>
+        <button class="jump" data-h="6.5" title="Trước cao điểm sáng">06:30</button>
+        <button class="jump" data-h="7.5" title="Cao điểm sáng">07:30</button>
+        <button class="jump" data-h="16" title="Trước cao điểm chiều">16:00</button>
+        <button class="jump" data-h="17.5" title="Cao điểm chiều">17:30</button>
+      </div>
+    </header>
+    <main id="split">
+      <section class="side" id="side-b1">
+        <h2>Không có lớp pin <small class="bb-label"></small></h2>
+        <div class="map"></div>
+        <div class="kpis"></div>
+        <canvas class="chart"></canvas>
+      </section>
+      <section class="side" id="side-v21">
+        <h2>Có lớp pin v2.1 <small class="bb-label"></small></h2>
+        <div class="map"></div>
+        <div class="kpis"></div>
+        <canvas class="chart"></canvas>
+      </section>
+    </main>
+    <footer id="legend">
+      <span><i class="dot" style="background:#2f9e44"></i>SOC ≥ 60%</span>
+      <span><i class="dot" style="background:#f2c94c"></i>40–60%</span>
+      <span><i class="dot" style="background:#f08c00"></i>20–40%</span>
+      <span><i class="dot" style="background:#e03131"></i>&lt; 20%</span>
+      <span><i class="dot ring-blue"></i>đi sạc / chờ / đang sạc</span>
+      <span><i class="dot ring-white"></i>đang đón / chở khách</span>
+      <span><i class="dot rider"></i>khách đang chờ xe</span>
+      <span><i class="sq"></i>trạm sạc: đang sạc / số cổng (+ hàng chờ)</span>
+      <span><i class="star saved"></i>bên này phục vụ được, bên kia mất</span>
+      <span><i class="star lost"></i>bên này mất, bên kia phục vụ được</span>
+      <span class="note" id="stats20"></span>
+    </footer>
+    <script type="module" src="/src/replay.ts"></script>
+  </body>
+</html>
