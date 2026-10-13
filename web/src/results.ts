@@ -16,7 +16,7 @@ const ROWS: { key: string; label: string; kind: "pct" | "min" | "vnd" | "count";
   { key: "wait_min_p90", label: "Thời gian chờ P90 của khách", kind: "min", better: -1 },
   { key: "charge_queue_min_mean", label: "Thời gian chờ ở trạm sạc", kind: "min", better: -1 },
   { key: "strandings_per_day", label: "Xe cạn pin giữa đường/ngày", kind: "count", better: -1 },
-  { key: "energy_cost_adj_vnd_day", label: "Chi phí điện (điều chỉnh)/ngày", kind: "vnd", better: -1 },
+  { key: "energy_cost_adj_vnd_day", label: "Chi phí điện cả đội/ngày (điều chỉnh)", kind: "vnd", better: -1 },
   { key: "charge_sessions_per_day", label: "Lượt sạc/ngày", kind: "count", better: 0 },
   { key: "charge_nudges_per_day", label: "Lượt gợi ý sạc/ngày", kind: "count", better: 0 },
 ];
