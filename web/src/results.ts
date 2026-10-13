@@ -132,7 +132,8 @@ export async function initResults(current: () => { scene: string; bb: string }) 
       const relTxt = Number.isFinite(rel) ? `${rel >= 0 ? "+" : "−"}${num(Math.abs(rel), 2)}%` : "—";
       const tip = `Chênh lệch tuyệt đối ${fmtDiff(md, row.kind)}` + (n > 1 ? ` ± ${fmtDiff(h, row.kind).slice(1)} (KTC 95%)` : "")
         + ` · ${d.filter((x) => Math.sign(x) === row.better && x !== 0).length}/${n} seed theo hướng tốt`;
-      return `<tr><td>${row.label}</td><td>${fmt(mv, row.kind)}</td><td>${fmt(mb, row.kind)}</td>`
+      const hl = row.key === "profit_adj_per_vehicle_day_vnd" ? ' class="highlight"' : "";
+      return `<tr${hl}><td>${row.label}</td><td>${fmt(mv, row.kind)}</td><td>${fmt(mb, row.kind)}</td>`
         + `<td class="${tone}" title="${tip}">${relTxt}${sig ? "" : " <small>(chưa rõ)</small>"}</td></tr>`;
     }).join("");
     $<HTMLElement>(".foot").textContent =

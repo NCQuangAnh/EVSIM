@@ -147,3 +147,5 @@ body { display: flex; flex-direction: column; }
 #results td small { font-weight: 400; }
 #results td.empty { text-align: center; color: var(--muted); }
 #results .foot { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+#results tbody tr.highlight td { background: #fff4cc; font-weight: 700; font-size: 15px; }
+#results tbody tr.highlight td:first-child { box-shadow: inset 4px 0 0 #f0b400; }
