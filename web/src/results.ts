@@ -21,8 +21,12 @@ const ROWS: { key: string; label: string; kind: "pct" | "min" | "vnd" | "count";
   { key: "charge_nudges_per_day", label: "Lượt gợi ý sạc/ngày", kind: "count", better: 0 },
 ];
 
-const BB_NAME: Record<string, string> = { b1: "B1 kiểu GSM", b0: "B0 greedy", b6: "B6 giá trị chuyến", b2: "B2 forward + repositioning" };
-const SCENE_NAME: Record<string, string> = { normal: "Bình thường", harsh: "Khắc nghiệt (stress)" };
+const BB_NAME: Record<string, string> = {
+  b1: "B1 kiểu GSM", b0: "B0 greedy", b6: "B6 giá trị chuyến", b2: "B2 forward + repositioning", didi: "DiDi",
+};
+const SCENE_NAME: Record<string, string> = {
+  normal: "Ocean Park 1 · Bình thường", harsh: "Ocean Park 1 · Khắc nghiệt (stress)", hanoi: "Hà Nội · quy mô đầy đủ",
+};
 
 // two-sided 95 % Student t quantiles, df = 1..30 (df > 30: 1.96)
 const T975 = [12.71, 4.30, 3.18, 2.78, 2.57, 2.45, 2.36, 2.31, 2.26, 2.23, 2.20, 2.18, 2.16, 2.14, 2.13, 2.12, 2.11,
@@ -35,7 +39,7 @@ function fmt(v: number, kind: string): string {
   if (kind === "pct") return `${num(v * 100, 2)}%`;
   if (kind === "min") return `${num(v, 2)} phút`;
   if (kind === "vnd") return `${num(Math.round(v), 0)} đ`;
-  return num(v, 1);
+  return num(v, Math.abs(v) < 10 ? 2 : 1);
 }
 
 function fmtDiff(d: number, kind: string): string {
@@ -59,7 +63,7 @@ export async function initResults(current: () => { scene: string; bb: string }) 
   overlay.innerHTML = `
     <div class="panel" role="dialog" aria-label="Kết quả">
       <div class="head">
-        <strong>Kết quả: luật ghép có và không có lớp pin v2.1</strong>
+        <strong>Kết quả: luật ghép có và không có lớp pin</strong>
         <button class="close" title="Đóng (Esc)">✕</button>
       </div>
       <div class="pick">
@@ -75,7 +79,12 @@ export async function initResults(current: () => { scene: string; bb: string }) 
   const $ = <T extends Element>(s: string) => overlay.querySelector(s) as T;
   const sceneSel = $<HTMLSelectElement>(".r-scene"), bbSel = $<HTMLSelectElement>(".r-bb");
   for (const s of scenes) sceneSel.add(new Option(SCENE_NAME[s] ?? s, s));
-  for (const b of bbs) bbSel.add(new Option(BB_NAME[b] ?? b, b));
+  const fillBbs = () => {   // black boxes that have runs in the chosen scenario
+    const keep = bbSel.value;
+    bbSel.innerHTML = "";
+    for (const b of bbs) if (data.runs.some((r) => r.scene === sceneSel.value && r.bb === b)) bbSel.add(new Option(BB_NAME[b] ?? b, b));
+    if ([...bbSel.options].some((o) => o.value === keep)) bbSel.value = keep;
+  };
   const seedBox = $<HTMLDivElement>(".seeds");
   const chosen = new Set<number>();
 
@@ -127,7 +136,7 @@ export async function initResults(current: () => { scene: string; bb: string }) 
         + `<td class="${tone}" title="${tip}">${relTxt}${sig ? "" : " <small>(chưa rõ)</small>"}</td></tr>`;
     }).join("");
     $<HTMLElement>(".foot").textContent =
-      `Trung bình ${n} seed, mỗi seed 48 giờ, so theo cặp (cùng seed hai bên). Xanh: tốt hơn và có ý nghĩa thống kê `
+      `Trung bình ${n} seed, so theo cặp (cùng seed hai bên). Xanh: tốt hơn và có ý nghĩa thống kê `
       + `(KTC 95% không chứa 0); đỏ: xấu hơn và có ý nghĩa; "(chưa rõ)": khoảng tin cậy chứa 0 hoặc chỉ có 1 seed. `
       + `Rê chuột lên ô chênh lệch để xem chênh lệch tuyệt đối. Lợi nhuận và chi phí điện đã điều chỉnh theo năng lượng còn trong pin.`;
   };
@@ -135,6 +144,7 @@ export async function initResults(current: () => { scene: string; bb: string }) 
   const open = () => {
     const c = current();
     sceneSel.value = c.scene;
+    fillBbs();
     bbSel.value = c.bb;
     chosen.clear();
     for (const [s] of pairs()) chosen.add(s);
@@ -144,7 +154,7 @@ export async function initResults(current: () => { scene: string; bb: string }) 
   };
   const close = () => { overlay.hidden = true; };
   const resetSeeds = () => { chosen.clear(); for (const [s] of pairs()) chosen.add(s); drawSeeds(); drawTable(); };
-  sceneSel.onchange = resetSeeds;
+  sceneSel.onchange = () => { fillBbs(); resetSeeds(); };
   bbSel.onchange = resetSeeds;
   $<HTMLButtonElement>(".all").onclick = resetSeeds;
   $<HTMLButtonElement>(".none").onclick = () => { chosen.clear(); drawSeeds(); drawTable(); };

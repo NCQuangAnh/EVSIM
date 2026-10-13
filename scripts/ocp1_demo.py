@@ -64,6 +64,21 @@ def one(job):
     return {"scene": scene, "bb": bb, "arm": arm, "seed": seed, **{k: float(m[k]) for k in KEYS}}
 
 
+def hanoi_didi_runs():
+    """DiDi value-based matching (B4c) is not run on OCP1 (its values are learned on the Hanoi grid); the results
+    table shows its Hanoi full-scale evaluation instead (eval_main, seeds 1000-1019, with and without the battery
+    layer v2.1 + end-of-shift home recommendation)."""
+    jobs = ROOT / "outputs" / "jobs" / "eval_main"
+    arms = {"black box B4c": "base", "B4c + v2.1 + home": "v21"}
+    out = []
+    for f in sorted(jobs.glob("*.json")) if jobs.exists() else []:
+        j = json.loads(f.read_text(encoding="utf-8"))
+        if j["arm"] in arms:
+            out.append({"scene": "hanoi", "bb": "didi", "arm": arms[j["arm"]], "seed": int(j["seed"]),
+                        "m": [float(j["metrics"][k]) for k in KEYS]})
+    return out
+
+
 def cmd_stats(a):
     seeds = list(range(a.seeds[0], a.seeds[1] + 1))
     jobs = [(sc, bb, arm, s) for sc in a.scenes for bb in a.bbs for s in seeds for arm in ("base", "v21")]
@@ -107,7 +122,7 @@ def cmd_stats(a):
                              "seed": demo, "n": len(ok), "summary": summary})
     # every run, for the "Kết quả" table of the replay page (web/src/results.ts)
     runs = [{"scene": r.scene, "bb": r.bb, "arm": r.arm, "seed": int(r.seed), "m": [float(r[k]) for k in KEYS]}
-            for _, r in df.iterrows()]
+            for _, r in df.iterrows()] + hanoi_didi_runs()
     WEB.mkdir(parents=True, exist_ok=True)
     (WEB / "ocp1_runs.json").write_text(json.dumps({"keys": KEYS, "runs": runs}), encoding="utf-8")
     (OUT / "ocp1_stats_all.md").write_text("\n".join(md), encoding="utf-8")
